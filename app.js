@@ -3,6 +3,7 @@ require('dotenv').config(); // загружает переменные сред�
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 const helmet = require('helmet'); // доп защита Экспресс-приложения. Устанавливает нужные заголовки для HTTP
 const { celebrate, Joi, errors } = require('celebrate');
 const routerArticles = require('./routes/articles');
@@ -21,6 +22,7 @@ const { PORT = 3000 } = process.env;
 const { createUser, getUserInfo, login } = require('./controllers/users');
 
 const app = express();
+app.use(cookieParser());
 app.use(helmet());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -46,6 +48,7 @@ app.use(auth); // работает
 app.get('/users/me', getUserInfo); // работает
 
 app.use('/articles', routerArticles); // работает
+
 app.use((req, res, next) => {
   const error = new NotFoundError('Запрашиваемый ресурс не найден');
   next(error);
