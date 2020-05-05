@@ -4,12 +4,14 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
+const rateLimit = require('express-rate-limit');
 const helmet = require('helmet'); // доп защита Экспресс-приложения. Устанавливает нужные заголовки для HTTP
 const { errors } = require('celebrate');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const router = require('./routes/index');
 const errorsHandler = require('./middlewares/errorHandler');
-const { CONNECTION_ADDRESS, PORT } = require('./config');
+const { CONNECTION_ADDRESS, PORT, RATE_LIMIT } = require('./config');
+
 
 mongoose.connect(CONNECTION_ADDRESS, {
   useNewUrlParser: true,
@@ -21,6 +23,7 @@ mongoose.connect(CONNECTION_ADDRESS, {
 const app = express();
 app.use(cookieParser());
 app.use(helmet());
+app.use(rateLimit(RATE_LIMIT));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(requestLogger); // подключаем логгер запросов
