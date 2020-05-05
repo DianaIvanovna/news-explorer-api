@@ -2,6 +2,7 @@
 const Article = require('../models/article');
 const User = require('../models/user');
 const NotFoundError = require('../errors/notFoundError');
+const Forbidden = require('../errors/forbidden');
 
 module.exports.getArticles = (req, res, next) => {
   // возвращает все сохранённые пользователем статьи
@@ -34,7 +35,7 @@ module.exports.deleteArticles = (req, res, next) => {
         throw new NotFoundError('Нет карточки с таким id');
       }
       if (String(article.owner) !== req.user._id) {
-        throw new NotFoundError('Вы не можете удалять чужие карточки');
+        throw new Forbidden('Вы не можете удалять чужие карточки');
       }
       return res.send({ data: article });
     })
