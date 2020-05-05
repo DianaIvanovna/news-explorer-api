@@ -6,9 +6,9 @@ const {
   getArticles, createArticles, deleteArticles,
 } = require('../controllers/articles');
 
-routerArticles.get('/', getArticles); // работает
+routerArticles.get('/', getArticles);
 
-routerArticles.post('/', celebrate({ // работает
+routerArticles.post('/', celebrate({
   body: Joi.object().keys({
     keyword: Joi.string().required(),
     title: Joi.string().required(),
@@ -34,7 +34,6 @@ routerArticles.delete('/:articlesId', celebrate({
   params: Joi.object().keys({
     articlesId: Joi.string().alphanum().length(24),
   }),
-}), deleteArticles); // работает
-
+}), deleteArticles);
 
 module.exports = routerArticles;

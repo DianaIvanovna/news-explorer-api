@@ -12,7 +12,7 @@ module.exports.createUser = (req, res, next) => {
     .then((hash) => User.create({
       name, email, password: hash,
     }))
-    .then((user) => res.send({
+    .then((user) => res.status(201).send({
       _id: user._id,
       name: user.name,
       email: user.email,
@@ -22,7 +22,6 @@ module.exports.createUser = (req, res, next) => {
       next(error);
     });
 };
-
 
 module.exports.getUserInfo = (req, res, next) => {
   User.findOne({})
@@ -34,7 +33,6 @@ module.exports.login = (req, res, next) => {
   const { email, password } = req.body;
   return User.findUserByCredentials(email, password)
     .then((user) => {
-      // создадим токен
       const token = jwt.sign({ _id: user._id }, SECRET);
       res
         .cookie('jwt', token, {
@@ -42,7 +40,6 @@ module.exports.login = (req, res, next) => {
           httpOnly: true,
           sameSite: true,
         })
-        .send(token) // удали потом
         .end();
     })
     .catch((err) => {
