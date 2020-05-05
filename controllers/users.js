@@ -40,6 +40,7 @@ module.exports.login = (req, res, next) => {
           httpOnly: true,
           sameSite: true,
         })
+        .send(token) // удали потом
         .end();
     })
     .catch((err) => {

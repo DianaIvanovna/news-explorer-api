@@ -1,3 +1,4 @@
+// errors/unauthorizedError.js
 class UnauthorizedError extends Error { // когда что-то не так при аутентификации или авторизации;
   constructor(message) {
     super(message);

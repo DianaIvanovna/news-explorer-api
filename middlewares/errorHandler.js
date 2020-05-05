@@ -1,3 +1,4 @@
+// middlewares/errorHandler.js
 module.exports = (err, req, res, next) => {
   const { statusCode = 500 } = err;
   res

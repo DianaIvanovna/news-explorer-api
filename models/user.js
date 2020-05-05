@@ -1,3 +1,4 @@
+// models/users.js
 const mongoose = require('mongoose'); // В MongoDB нет поддержки схем по умолчанию, но есть в Mongoose
 const bcrypt = require('bcryptjs'); // чтобы проверить пароли
 const validator = require('validator'); // для валидации схем
@@ -26,8 +27,7 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-/* eslint func-names: off */
-userSchema.statics.findUserByCredentials = function (email, password) {
+userSchema.statics.findUserByCredentials = function findUserByCredentials(email, password) {
   return this.findOne({ email }).select('+password')
     .then((user) => {
       if (!user) { // не нашли почту в БД

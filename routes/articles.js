@@ -1,4 +1,5 @@
-const routerArticles = require('express').Router(); // создала роутер
+// routers/articles.js
+const routerArticles = require('express').Router();
 const { celebrate, Joi } = require('celebrate');
 const validator = require('validator');
 const BadRequestError = require('../errors/badRequestError');

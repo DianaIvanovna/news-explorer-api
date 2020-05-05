@@ -1,3 +1,4 @@
+// models/article.js
 const mongoose = require('mongoose'); // В MongoDB нет поддержки схем по умолчанию, но есть в Mongoose
 const validator = require('validator');
 

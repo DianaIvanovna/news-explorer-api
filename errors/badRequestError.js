@@ -1,3 +1,4 @@
+// errors/badRequestError.js
 class BadRequestError extends Error { // когда с запросом что-то не так;
   constructor(message) {
     super(message);

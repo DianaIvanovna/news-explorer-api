@@ -1,12 +1,16 @@
+// controllers/articles.js
 const Article = require('../models/article');
+const User = require('../models/user');
 const NotFoundError = require('../errors/notFoundError');
 
 module.exports.getArticles = (req, res, next) => {
   // возвращает все сохранённые пользователем статьи
-  Article.find({})
-    .then((article) => res.send(article))
+  Article.find({ owner: req.user._id })
+    .populate({ path: 'owner', model: User })
+    .then((articles) => res.send({ data: articles }))
     .catch(next);
 };
+
 module.exports.createArticles = (req, res, next) => {
   // создаёт статью с переданными в теле
   // keyword, title, text, date, source, link и image
@@ -17,10 +21,7 @@ module.exports.createArticles = (req, res, next) => {
     keyword, title, text, date, source, link, image, owner: req.user._id,
   })
     .then((article) => res.send({ data: article }))
-    .catch((err) => {
-      console.log(err);
-      next();
-    });
+    .catch(next);
 };
 
 module.exports.deleteArticles = (req, res, next) => {
@@ -31,6 +32,9 @@ module.exports.deleteArticles = (req, res, next) => {
     .then((article) => {
       if (article == null) {
         throw new NotFoundError('Нет карточки с таким id');
+      }
+      if (String(article.owner) !== req.user._id) {
+        throw new NotFoundError('Вы не можете удалять чужие карточки');
       }
       return res.send({ data: article });
     })

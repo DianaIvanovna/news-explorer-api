@@ -1,3 +1,4 @@
+// errors/notFoundError.js
 class NotFoundError extends Error { // ресурс не найден
   constructor(message) {
     super(message);
