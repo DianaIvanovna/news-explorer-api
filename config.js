@@ -1,3 +1,5 @@
 module.exports = {
   SECRET: process.env === 'production' ? process.env.SECRET : 'dev-secret',
 };
+module.exports.PORT = process.env.PORT || 3000;
+module.exports.CONNECTION_ADDRESS = process.env.CONNECTION_ADDRESS || 'mongodb://localhost:27017/vespuccidb';

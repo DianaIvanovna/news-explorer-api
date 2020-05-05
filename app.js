@@ -9,10 +9,9 @@ const { errors } = require('celebrate');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const router = require('./routes/index');
 const errorsHandler = require('./middlewares/errorHandler');
+const { CONNECTION_ADDRESS, PORT } = require('./config');
 
-const { PORT = 3000 } = process.env;
-
-mongoose.connect('mongodb://localhost:27017/newsdb', {
+mongoose.connect(CONNECTION_ADDRESS, {
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false,
