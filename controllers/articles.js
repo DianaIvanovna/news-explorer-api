@@ -27,9 +27,7 @@ module.exports.createArticles = (req, res, next) => {
 
 module.exports.deleteArticles = (req, res, next) => {
   // удаляет сохранённую статью  по _id
-  console.log(req.params.articlesId);
-
-  Article.findByIdAndRemove(req.params.articlesId)
+  Article.findById(req.params.articlesId).select('+owner')
     .then((article) => {
       if (article == null) {
         throw new NotFoundError('Нет карточки с таким id');
@@ -37,7 +35,13 @@ module.exports.deleteArticles = (req, res, next) => {
       if (String(article.owner) !== req.user._id) {
         throw new Forbidden('Вы не можете удалять чужие карточки');
       }
-      return res.send({ data: article });
+      article.remove()
+        .then((data) => {
+          res.send({ message: 'Эта статья была удалена', data });
+        })
+
+        .catch(next);
+      // return res.send({ data: article });
     })
     .catch(next);
 };
