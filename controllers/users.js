@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 const BadRequestError = require('../errors/badRequestError');
 const UnauthorizedError = require('../errors/unauthorizedError');
+const Confict = require('../errors/conflict ');
 const { SECRET } = require('../config.js');
 
 module.exports.createUser = (req, res, next) => {
@@ -18,8 +19,10 @@ module.exports.createUser = (req, res, next) => {
       email: user.email,
     }))
     .catch((err) => {
-      const error = new BadRequestError(err.message);
-      next(error);
+      if (err.message.startsWith('E11000')) {
+        next(new Confict('email занят'));
+      }
+      next(new BadRequestError(err.message));
     });
 };
 
@@ -40,7 +43,6 @@ module.exports.login = (req, res, next) => {
           httpOnly: true,
           sameSite: true,
         })
-        .send(token) // удали потом
         .end();
     })
     .catch((err) => {

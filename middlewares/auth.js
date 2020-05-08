@@ -5,9 +5,7 @@ const UnauthorizedError = require('../errors/unauthorizedError');
 
 module.exports = (req, res, next) => {
   let payload;
-  // const token = req.cookies.jwt; // верифицируем токен
-  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZWI1MmNlMjRiYjRlYjE2YTA1NWRmZGIiLCJpYXQiOjE1ODg5MzE4MjF9.EI6EybVR6ScpCCrkgdHHiPiZ1yUvkZ8vGDii72e_bCk';
-
+  const token = req.cookies.jwt; // верифицируем токен
   try {
     payload = jwt.verify(token, SECRET);
   } catch (err) {

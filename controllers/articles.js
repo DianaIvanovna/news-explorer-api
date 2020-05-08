@@ -39,9 +39,7 @@ module.exports.deleteArticles = (req, res, next) => {
         .then((data) => {
           res.send({ message: 'Эта статья была удалена', data });
         })
-
         .catch(next);
-      // return res.send({ data: article });
     })
     .catch(next);
 };
