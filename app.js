@@ -34,7 +34,7 @@ mongoose.connect(CONNECTION_ADDRESS, {
 });
 
 const app = express();
-app.get('/', cors(corsOptions), (req, res, next) => {
+app.get('/:id', cors(corsOptions), (req, res, next) => {
   res.json({ msg: 'This is CORS-enabled for a whitelisted domain.' });
   next();
 });
