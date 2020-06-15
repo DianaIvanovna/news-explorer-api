@@ -14,7 +14,7 @@ const errorsHandler = require('./middlewares/errorHandler');
 const { CONNECTION_ADDRESS, PORT, RATE_LIMIT } = require('./config');
 
 // Массив разешённых доменов
-const whitelist = [' https://news-explorer-api.gq/', ' http://news-explorer-api.gq/', 'https://www.news-explorer-api.gq/', 'https://www.news-explorer-api.gq/'];
+const whitelist = [' https://news-explorer-api.gq/', ' http://news-explorer-api.gq/', 'https://www.news-explorer-api.gq/', 'https://www.news-explorer-api.gq/','localhost:8080'];
 
 const corsOptions = {
   origin(origin, callback) {
