@@ -14,7 +14,7 @@ const errorsHandler = require('./middlewares/errorHandler');
 const { CONNECTION_ADDRESS, PORT, RATE_LIMIT } = require('./config');
 
 // Массив разешённых доменов
-const whitelist = [' https://news-explorer-api.gq/', ' http://news-explorer-api.gq/', 'https://www.news-explorer-api.gq/', 'https://www.news-explorer-api.gq/','localhost:8080'];
+const whitelist = [' https://news-explorer-api.gq/', ' http://news-explorer-api.gq/', 'https://www.news-explorer-api.gq/', 'https://www.news-explorer-api.gq/', 'localhost:8080'];
 
 const corsOptions = {
   origin(origin, callback) {
@@ -34,10 +34,7 @@ mongoose.connect(CONNECTION_ADDRESS, {
 });
 
 const app = express();
-app.get('/:id', cors(corsOptions), (req, res, next) => {
-  res.json({ msg: 'This is CORS-enabled for a whitelisted domain.' });
-  next();
-});
+app.use(cors(corsOptions));
 app.use(cookieParser());
 app.use(helmet());
 app.use(rateLimit(RATE_LIMIT));
