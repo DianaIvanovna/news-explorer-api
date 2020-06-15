@@ -25,7 +25,7 @@ const allowedCors = [
   'https://www.news-explorer-api.gq/',
   'http://news-explorer-api.gq/',
   'http://www.news-explorer-api.gq/',
-  'localhost:3000',
+  'localhost:8080',
 ];
 const app = express();
 app.use((req, res, next) => {
