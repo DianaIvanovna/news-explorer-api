@@ -19,9 +19,22 @@ mongoose.connect(CONNECTION_ADDRESS, {
   useFindAndModify: false,
   useUnifiedTopology: true,
 });
-
+// Массив разешённых доменов
+const allowedCors = [
+  'https://news-explorer-api.gq/',
+  'https://www.news-explorer-api.gq/',
+  'http://news-explorer-api.gq/',
+  'http://www.news-explorer-api.gq/',
+  'localhost:3000',
+];
 const app = express();
-app.use(cors());
+app.use((req, res, next) => {
+  const { origin } = req.headers; // Записываем в переменную origin соответствующий заголовок
+  if (allowedCors.includes(origin)) { // Проверяем,что значение origin есть среди разрешённых домено
+    res.header('Access-Control-Allow-Origin', origin);
+  }
+  next();
+});
 app.use(cookieParser());
 app.use(helmet());
 app.use(rateLimit(RATE_LIMIT));
