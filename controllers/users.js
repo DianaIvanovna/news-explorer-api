@@ -44,7 +44,7 @@ module.exports.login = (req, res, next) => {
           domain: '',
           maxAge: 604800,
           httpOnly: true,
-          sameSite: true,
+          // sameSite: true, нужен, когда один домен
         })
         .send({ // удали потом
           data: user.name,
