@@ -27,7 +27,7 @@ module.exports.createUser = (req, res, next) => {
 };
 
 module.exports.getUserInfo = (req, res, next) => {
-  User.findOne({})
+  User.findOne(req.user._id)
     .then((user) => {
       res.send({ name: user.name, email: user.email });
     })
