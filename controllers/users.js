@@ -46,7 +46,7 @@ module.exports.login = (req, res, next) => {
           httpOnly: true,
           sameSite: true,
         })
-        .send({
+        .send({ // удали потом
           data: user.name,
           token,
         });
