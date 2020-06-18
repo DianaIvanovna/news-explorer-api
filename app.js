@@ -13,28 +13,18 @@ const router = require('./routes/index');
 const errorsHandler = require('./middlewares/errorHandler');
 const { CONNECTION_ADDRESS, PORT, RATE_LIMIT } = require('./config');
 
-// Массив разешённых доменов
-// const whitelist = [' https://news-explorer-api.gq/', ' http://news-explorer-api.gq/', 'https://www.news-explorer-api.gq/', 'https://www.news-explorer-api.gq/', 'localhost:8080'];
-
-// const corsOptions = {
-//   origin(origin, callback) {
-//     if (whitelist.indexOf(origin) !== -1) {
-//       callback(null, true);
-//     } else {
-//       callback(new Error('Not allowed by CORS'));
-//     }
-//   },
-// };
-
 mongoose.connect(CONNECTION_ADDRESS, {
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false,
   useUnifiedTopology: true,
 });
+const corsOptions = {
+  credentials: true,
+};
 
 const app = express();
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(cookieParser());
 app.use(helmet());
 app.use(rateLimit(RATE_LIMIT));
