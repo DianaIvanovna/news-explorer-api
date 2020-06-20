@@ -9,4 +9,5 @@ router.get('/me', celebrate({
   }),
 }), getUserInfo);
 
+
 module.exports = router;

@@ -64,7 +64,7 @@ module.exports.logout = (req, res, next) => {
       res
         .cookie('jwt', token, {
           domain: '',
-          maxAge: 0,
+          maxAge: -1,
           httpOnly: true,
           // sameSite: true, нужен, когда один домен
         })
