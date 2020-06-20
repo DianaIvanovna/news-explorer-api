@@ -58,7 +58,7 @@ module.exports.login = (req, res, next) => {
 };
 
 module.exports.logout = (req, res, next) => {
-  User.findById(req.user._id)
+  return User.findById(req.user._id)
     .then((user) => {
       const token = jwt.sign({ _id: user._id }, SECRET);
       res
