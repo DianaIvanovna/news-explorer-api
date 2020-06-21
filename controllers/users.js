@@ -57,24 +57,22 @@ module.exports.login = (req, res, next) => {
     });
 };
 
-module.exports.logout = (req, res, next) => {
-  return User.findById(req.user._id)
-    .then((user) => {
-      const token = jwt.sign({ _id: user._id }, SECRET);
-      res
-        .cookie('jwt', token, {
-          domain: '',
-          maxAge: -1,
-          httpOnly: true,
-          // sameSite: true, нужен, когда один домен
-        })
-        .send({ // удали потом
-          data: user.name,
-          token,
-        });
-    })
-    .catch((err) => {
-      const error = new UnauthorizedError(err.message);
-      next(error);
-    });
-};
+module.exports.logout = (req, res, next) => User.findById(req.user._id)
+  .then((user) => {
+    const token = jwt.sign({ _id: user._id }, SECRET);
+    res
+      .cookie('jwt', token, {
+        domain: '',
+        maxAge: -1,
+        httpOnly: true,
+        // sameSite: true, нужен, когда один домен
+      })
+      .send({ // удали потом
+        data: user.name,
+        token,
+      });
+  })
+  .catch((err) => {
+    const error = new UnauthorizedError(err.message);
+    next(error);
+  });
