@@ -44,7 +44,6 @@ module.exports.login = (req, res, next) => {
           domain: '',
           maxAge: 604800,
           httpOnly: true,
-          sameSite: true,
         })
         .end();
     })
