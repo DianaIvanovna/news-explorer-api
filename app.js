@@ -19,17 +19,18 @@ mongoose.connect(CONNECTION_ADDRESS, {
   useFindAndModify: false,
   useUnifiedTopology: true,
 });
-const whitelist = ['https://news-explorer-api.gq/', 'http://news-explorer-api.gq/',
-  'https://www.news-explorer-api.gq/', 'https://www.news-explorer-api.gq/'];
+// const whitelist = ['https://news-explorer-api.gq/', 'http://news-explorer-api.gq/',
+//  'https://www.news-explorer-api.gq/', 'https://www.news-explorer-api.gq/'];
 
 const corsOptions = {
-  origin: function (origin, callback) {
-    if (whitelist.indexOf(origin) !== -1) {
-      callback(null, true)
-    } else {
-      callback(new Error('Not allowed by CORS'))
-    }
-  },
+  // origin: function (origin, callback) {
+  //   if (whitelist.indexOf(origin) !== -1) {
+  //     callback(null, true);
+  //   } else {
+  //     callback(new Error('Not allowed by CORS'));
+  //   }
+  // },
+  origin:'https://news-explorer-api.gq/',
   credentials: true,
 };
 

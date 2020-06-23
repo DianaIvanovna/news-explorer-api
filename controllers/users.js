@@ -46,10 +46,7 @@ module.exports.login = (req, res, next) => {
           httpOnly: true,
           sameSite: true,
         })
-        .send({ // удали потом
-          data: user.name,
-          token,
-        });
+        .end();
     })
     .catch((err) => {
       const error = new UnauthorizedError(err.message);
