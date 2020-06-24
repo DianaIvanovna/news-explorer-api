@@ -22,7 +22,7 @@ mongoose.connect(CONNECTION_ADDRESS, {
 // 'https://news-explorer-api.gq/' || 'http://news-explorer-api.gq/' || 'https://www.news-explorer-api.gq/' || 'https://www.news-explorer-api.gq/',
 
 const corsOptions = {
-  origin: 'https://news-explorer-api.gq/',
+  origin: 'https://news-explorer-api.gq' || 'http://news-explorer-api.gq' || 'https://www.news-explorer-api.gq' || 'https://www.news-explorer-api.gq',
   credentials: true,
 };
 
