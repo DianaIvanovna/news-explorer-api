@@ -46,7 +46,7 @@ module.exports.login = (req, res, next) => {
           httpOnly: true,
           sameSite: true,
         })
-        .end();
+        .send(token);
     })
     .catch((err) => {
       const error = new UnauthorizedError(err.message);
