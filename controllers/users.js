@@ -41,7 +41,7 @@ module.exports.login = (req, res, next) => {
       const token = jwt.sign({ _id: user._id }, SECRET);
       res
         .cookie('jwt', token, {
-          domain: 'news-explorer-api.gq',
+          domain: 'api.news-explorer-api.gq',
           maxAge: 604800,
           httpOnly: true,
          // sameSite: true,
@@ -59,7 +59,7 @@ module.exports.logout = (req, res, next) => User.findById(req.user._id)
     const token = jwt.sign({ _id: user._id }, SECRET);
     res
       .cookie('jwt', token, {
-        domain: 'news-explorer-api.gq',
+        domain: 'api.news-explorer-api.gq',
         maxAge: -1,
         httpOnly: true,
       //  sameSite: true, // нужен, когда один домен
