@@ -41,12 +41,12 @@ module.exports.login = (req, res, next) => {
       const token = jwt.sign({ _id: user._id }, SECRET);
       res
         .cookie('jwt', token, {
-          domain: 'news-explorer-api',
+          domain: '.news-explorer-api.gq',
           maxAge: 604800,
           httpOnly: true,
           // sameSite: true,
         })
-        .send(token, user);
+        .end();
     })
     .catch((err) => {
       const error = new UnauthorizedError(err.message);
@@ -59,15 +59,12 @@ module.exports.logout = (req, res, next) => User.findById(req.user._id)
     const token = jwt.sign({ _id: user._id }, SECRET);
     res
       .cookie('jwt', token, {
-        domain: 'news-explorer-api',
+        domain: '.news-explorer-api.gq',
         maxAge: -1,
         httpOnly: true,
         // sameSite: true, // нужен, когда один домен
       })
-      .send({ // удали потом
-        data: user.name,
-        token,
-      });
+      .end();
   })
   .catch((err) => {
     const error = new UnauthorizedError(err.message);
